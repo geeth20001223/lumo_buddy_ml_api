@@ -17,8 +17,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application files and model directory
 COPY . .
 
-# Expose port 7860 (Hugging Face Spaces default container port)
-EXPOSE 7860
+# Expose port 10000 (Render default web service port)
+EXPOSE 10000
 
-# Start FastAPI application using Uvicorn on port 7860
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "7860"]
+# Start FastAPI application using Uvicorn reading PORT from environment variable (default: 10000)
+CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT:-10000}"]
